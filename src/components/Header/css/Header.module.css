@@ -1,0 +1,27 @@
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  border: 5px solid black;
+  margin-bottom: 10px;
+  background-color: #ad00fd;
+  height: 150px;
+}
+
+.header img {
+  border: 5px solid black;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.header .title {
+  margin-left: 20px;
+  color: white;
+  text-shadow: 3px 2px 5px black;
+}
+/*# sourceMappingURL=Header.module.css.map */

@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,QAAQ,CAAC;EACL,IAAI,EAAE,IAAI;EACV,MAAM,EAAE,eAAe;EACvB,OAAO,EAAE,IAAI;EACb,gBAAgB,EAAE,OAAgB;EAClC,KAAK,EAAE,KAAK;EACZ,SAAS,EAAE,IAAI;CAElB",
-    "sources": [
-        "../scss/Profile.module.scss"
-    ],
-    "names": [],
-    "file": "Profile.module.css"
-}

@@ -1,11 +1,15 @@
-import styles from "./css/Profile.module.css";
+import styles from "./Profile.module.scss";
+import Description from "./Description/Description";
+import MyPosts from "./MyPosts/MyPosts";
 
 function Profile() {
     return (
         <div className={styles.profile}>
-            <img src="#" alt="avatar" />
-            <p>Предисловие: Наконец появилась возможность добраться до интернета, сейчас мы находимся в Панамском канале и здесь есть wifi. Я на судне уже больше месяца и пока я здесь, я писал все интересное что здесь происходит и вот наконец есть возможность этим поделиться. Фотографий пока не будет, их я выложу или позже, или уже когда вернусь домой. Итак, понеслась:
-            </p>
+            <div className={styles.mainInfo}>
+                <img className={styles.avatar} src="https://image.similarpng.com/very-thumbnail/2021/05/Lion-shield-luxury-logo-icon-on-transparent-background-PNG.png" alt="avatar" />
+                <Description />
+            </div>
+            <MyPosts />
         </div>
     );
 }

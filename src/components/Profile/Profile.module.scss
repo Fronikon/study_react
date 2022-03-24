@@ -1,0 +1,20 @@
+.profile {
+    flex: auto;
+    border: 5px solid black;
+    padding: 10px;
+    background-color: rgb(209, 73, 19);
+    color: white;
+    font-size: 20px;
+    .mainInfo {
+        display: flex;
+        margin-bottom: 50px;
+        .avatar {
+            flex-shrink: 0;
+            width: 200px;
+            height: 200px;
+            margin-right: 20px;
+            border: 5px solid black;
+            border-radius: 50%;
+        }
+    }
+}

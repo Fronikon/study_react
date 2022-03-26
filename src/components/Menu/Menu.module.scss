@@ -5,4 +5,9 @@
     padding: 10px;
     border: 5px solid black;
     background-color: chartreuse;
+    .item a {
+        &.active {
+            color: red;
+        }
+    }
 }

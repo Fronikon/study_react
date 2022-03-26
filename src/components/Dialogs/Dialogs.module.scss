@@ -1,0 +1,14 @@
+.dialogs {
+    display: flex;
+    width: 100%;
+    .names {
+        flex: 0 0 20%;
+    }
+    .messages {
+        flex: auto;
+        background-color: white;
+        color: black;
+        padding: 10px;
+        border-radius: 10px;
+    }
+}

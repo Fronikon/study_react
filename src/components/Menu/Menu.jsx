@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import styles from './Menu.module.scss'
 
 function Menu() {
@@ -5,16 +6,25 @@ function Menu() {
         <nav className={styles.menu}>
             <ul>
                 <li className={styles.item}>
-                    <a href="/profile">Profile</a>
+                    <NavLink to="/profile" className={ navData => navData.isActive ? styles.active : ""}>Profile</NavLink>
                 </li>
+
                 <li className={styles.item}>
-                    <a href="/dialogs">Friends</a></li>
-                <li className={styles.item}><a href="#">Messages</a>
+                    <NavLink to="/dialogs" className={ navData => navData.isActive ? styles.active : ""}>Messages</NavLink>
                 </li>
+
                 <li className={styles.item}>
-                    <a href="#">Music</a></li>
-                <li className={styles.item}><a href="#">Video</a>
+                    <a href="#">Friends</a>
                 </li>
+
+                <li className={styles.item}>
+                    <a href="#">Music</a>
+                </li>
+
+                <li className={styles.item}>
+                    <a href="#">Video</a>
+                </li>
+                
                 <li className={styles.item}>
                     <a href="#">Settings</a>
                 </li>

@@ -8,17 +8,17 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 function App(props) {
   return (
     <BrowserRouter>
-      <div className="app_wrapper">
+      <div className="app">
         <Header />
-        <div className="wrapper_center">
+        <main className="main">
           <Menu />
           <div className='content'>
             <Routes>
-              <Route path="profile/*" element={<Profile />}></Route>
-              <Route path="dialogs/*" element={<Dialogs messagesData={props.messagesData} dialogsData={props.dialogsData}/>}></Route>
+              <Route path="profile/*" element={<Profile profilePage={props.state.profilePage}/>}></Route>
+              <Route path="dialogs/*" element={<Dialogs messagesPage={props.state.messagesPage}/>}></Route>
             </Routes>
           </div>
-        </div>
+        </main>
       </div>
     </BrowserRouter>
   );

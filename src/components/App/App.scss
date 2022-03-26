@@ -1,4 +1,4 @@
-.app_wrapper {
+.app {
     display: flex;
     flex-direction: column;
     width: 1440px;
@@ -7,7 +7,7 @@
     padding: 10px;
 }
 
-.wrapper_center {
+.main {
     display: flex;
     height: 100%;
 }

@@ -1,21 +1,14 @@
 import styles from "./MyPosts.module.scss";
 import Post from "./Post/Post";
 
-function MyPosts() {
+function MyPosts(props) {
+    let postsElements = props.posts.map( (cur) => <Post key={cur.id} comment={cur.comment} />)
+
     return (
         <div className={styles.myPosts}>
             <h3 className="title">Посты:</h3>
             <div className={styles.container}>
-                <Post coment="Hello World!" />
-                <Post coment="Прикольная стена." />
-                <Post coment="Прикольная стена." />
-                <Post coment="Прикольная стена." />
-                <Post coment="Прикольная стена." />
-                <Post coment="Прикольная стена." />
-                <Post coment="Прикольная стена." />
-                <Post coment="Прикольная стена." />
-                <Post coment="Прикольная стена." />
-                <Post coment="Прикольная стена." />
+                {postsElements}
             </div>
         </div>
     );

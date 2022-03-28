@@ -3,7 +3,7 @@ import Header from '../Header/Header';
 import Menu from '../Menu/Menu';
 import Profile from '../Profile/Profile';
 import Dialogs from '../Dialogs/Dialogs';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App(props) {
   return (
@@ -14,8 +14,10 @@ function App(props) {
           <Menu />
           <div className='content'>
             <Routes>
-              <Route path="profile/*" element={<Profile profilePage={props.state.profilePage}/>}></Route>
-              <Route path="dialogs/*" element={<Dialogs messagesPage={props.state.messagesPage}/>}></Route>
+              <Route path="profile/*" element={<Profile 
+                profilePage={props.state.profilePage}
+                dispatch={props.dispatch} />}></Route>
+              <Route path="dialogs/*" element={<Dialogs messagesPage={props.state.messagesPage} />}></Route>
             </Routes>
           </div>
         </main>

@@ -1,6 +1,21 @@
-.container {
-    padding: 30px 10px 10px 10px;
-    background-color: rgba(0, 0, 0, 0.342);
-    color: black;
-    border-radius: 10px;
+.myPosts {
+    .new_post {
+        textarea {
+            font-size: inherit;
+            padding: 5px;
+            border: 3px solid black;
+            border-radius: 5px;
+        }
+    }
+    button {
+        padding: 5px;
+        font-size: inherit;
+        margin-bottom: 20px;
+    }
+    .posts {
+        padding: 30px 10px 10px 10px;
+        background-color: rgba(0, 0, 0, 0.342);
+        color: black;
+        border-radius: 10px;
+    }
 }

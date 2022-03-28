@@ -14,10 +14,10 @@ function App(props) {
           <Menu />
           <div className='content'>
             <Routes>
-              <Route path="profile/*" element={<Profile 
-                profilePage={props.state.profilePage}
-                dispatch={props.dispatch} />}></Route>
-              <Route path="dialogs/*" element={<Dialogs messagesPage={props.state.messagesPage} />}></Route>
+              <Route path="profile/*" element={<Profile profilePage={props.state.profilePage}
+                                                        dispatch={props.dispatch} />}></Route>
+              <Route path="dialogs/*" element={<Dialogs messagesPage={props.state.messagesPage}
+                                                        dispatch={props.dispatch} />}></Route>
             </Routes>
           </div>
         </main>

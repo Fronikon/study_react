@@ -4,11 +4,31 @@
     .names {
         flex: 0 0 20%;
     }
-    .messages {
+    .messages_field {
         flex: auto;
-        background-color: white;
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(156, 156, 156);
         color: black;
         padding: 10px;
         border-radius: 10px;
+        .messages {
+            height: 100%;
+            margin-bottom: 20px;
+        }
+        .send_message {
+            display: flex;
+            align-items: center;
+            textarea {
+                font-size: inherit;
+                margin-right: 10px;
+                padding: 5px;
+                border: 3px solid black;
+                border-radius: 10px;
+            }
+            button {
+                padding: 5px;
+            }
+        }
     }
 }

@@ -1,18 +1,42 @@
 import styles from "./Dialogs.module.scss";
-import DialogItem from "./DialogItem/DialogItem";
-import MessageItem from "./MessageItem/MessageItem";
+import DialogUser from "./DialogUser/DialogUser";
+import MessagesUser from "./MessagesUser/MessagesUser";
+import {sendMassageActionCreater, updateNewMessageBodyActionCreater} from "../../redux/state"
 
 function Dialogs(props) {
-    let dialogsElements = props.messagesPage.dialogs.map( (cur) => <DialogItem key={cur.id} name={cur.name} id={cur.id} />)
-    let messagesElements = props.messagesPage.messages.map( (cur) => <MessageItem key={cur.id} message={cur.message} />)
+    function onSendMassageClick() {
+        props.dispatch(sendMassageActionCreater());
+    }
+    
+    function onNewBodyMessageChange(e) {
+        let body = e.target.value;
+        props.dispatch(updateNewMessageBodyActionCreater(body));
+    }
+
+    let dialogsElements = props.messagesPage.dialogs.map( (cur) => {
+        return <DialogUser key={cur.id}
+                            name={cur.name}
+                            avatar={cur.avatar}
+                            id={cur.id} />
+    })
+
+    let messagesElements = props.messagesPage.messages.map( (cur) => {
+        return <MessagesUser message={cur.message} />
+    })
 
     return (
         <div className={styles.dialogs}>
             <div className={styles.names}>
                 {dialogsElements}
             </div>
-            <div className={styles.messages}>
-                {messagesElements}
+            <div className={styles.messages_field}>
+                <div className={styles.messages}>
+                    {messagesElements}
+                </div>
+                <div className={styles.send_message}>
+                    <textarea onChange={onNewBodyMessageChange} value={props.messagesPage.newMessagesBody} cols="50" rows="2"></textarea>
+                    <button onClick={onSendMassageClick}>Отправить</button>
+                </div>
             </div>
         </div>
     );

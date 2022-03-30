@@ -1,7 +1,7 @@
 import styles from "./Dialogs.module.scss";
 import DialogUser from "./DialogUser/DialogUser";
 import MessagesUser from "./MessagesUser/MessagesUser";
-import {sendMassageActionCreater, updateNewMessageBodyActionCreater} from "../../redux/state"
+import {sendMassageActionCreater, updateNewMessageBodyActionCreater} from "../../redux/dialog-reducer"
 
 function Dialogs(props) {
     function onSendMassageClick() {

@@ -1,22 +1,20 @@
 import { useRef } from "react";
 import styles from "./MyPosts.module.scss";
 import Post from "./Post/Post";
-import {addPostActionCreater, updateNewPostTextActionCreater} from "../../../redux/profile-reducer"
 
 function MyPosts(props) {
-
     let postsElements = props.posts.map((cur) => <Post key={cur.id} comment={cur.comment} />)
-
     let newPostElement = useRef();
 
     function addPost() {
-        props.dispatch(addPostActionCreater());
+        props.addPost();
     }
 
     function onPostChange() {
         let text = newPostElement.current.value;
-        props.dispatch(updateNewPostTextActionCreater(text));
+        props.updateNewPostText(text);
     }
+    
     return (
         <div className={styles.myPosts}>
             <div className={styles.new_post}>

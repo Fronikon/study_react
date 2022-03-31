@@ -2,18 +2,18 @@ import './index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App/App.js';
-import store from './redux/state';
+import store from './redux/redux-store';
+import {Provider} from 'react-redux';
 
-function renderEntireTree(state) {
+function renderEntireTree(store) {
     ReactDOM.render(
         <React.StrictMode>
-            <App
-                state={state}
-                dispatch={store.dispatch.bind(store)} />
+            <Provider store={store}>
+                <App />
+            </Provider>
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
 
-renderEntireTree(store.getState())
-store.subscribe(renderEntireTree)
+renderEntireTree(store);

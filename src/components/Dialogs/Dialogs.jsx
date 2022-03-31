@@ -1,16 +1,15 @@
 import styles from "./Dialogs.module.scss";
 import DialogUser from "./DialogUser/DialogUser";
 import MessagesUser from "./MessagesUser/MessagesUser";
-import {sendMassageActionCreater, updateNewMessageBodyActionCreater} from "../../redux/dialog-reducer"
 
 function Dialogs(props) {
     function onSendMassageClick() {
-        props.dispatch(sendMassageActionCreater());
+        props.sendMassage();
     }
     
     function onNewBodyMessageChange(e) {
         let body = e.target.value;
-        props.dispatch(updateNewMessageBodyActionCreater(body));
+        props.updateNewMessageBody(body);
     }
 
     let dialogsElements = props.messagesPage.dialogs.map( (cur) => {

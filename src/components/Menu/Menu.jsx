@@ -14,6 +14,10 @@ function Menu() {
                 </li>
 
                 <li className={styles.item}>
+                    <NavLink to="/users" className={ navData => navData.isActive ? styles.active : ""}>Users</NavLink>
+                </li>
+
+                <li className={styles.item}>
                     <a href="#">Friends</a>
                 </li>
 

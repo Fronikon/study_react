@@ -1,0 +1,50 @@
+.user {
+    display: flex;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgb(255, 196, 0);
+    border-radius: 10px;
+    color: black;
+    .wrapper_avatar {
+        display: flex;
+        flex: 0 0 8%;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 20px;
+        .avatar {
+            display: block;
+            border: 2px solid rgb(42, 204, 42);
+            border-radius: 50%;
+            margin-bottom: 10px;
+            background-color: white;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            object-position: center;
+        }
+        .follow_button {
+            width: 80%;
+            padding: 2px;
+        }
+    }
+    
+    .wrapper_info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .status {
+            background-color: white;
+            padding: 5px;
+            border-radius: 10px;
+        }
+    }
+    .wrapper_location {
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: white;
+    }
+}

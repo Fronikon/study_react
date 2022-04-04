@@ -1,5 +1,6 @@
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const ADD_POST = 'ADD-POST';
+const SET_USER_PROFILE = 'SET-USER-PROFILE';
 
 let initialState = {
     posts: [
@@ -11,6 +12,7 @@ let initialState = {
         { comment: 'Прикол.', id: '6' }
     ],
     newTextPost: '',
+    profile: null,
 }
 
 const profileReduce = (state = initialState, action) => {
@@ -20,7 +22,7 @@ const profileReduce = (state = initialState, action) => {
                 ...state,
                 newTextPost: action.text,
             }
-        }
+        };
         case ADD_POST: {
             let newPost = {
                 comment: state.newTextPost,
@@ -31,7 +33,13 @@ const profileReduce = (state = initialState, action) => {
                 posts: [...state.posts, newPost],
                 newTextPost: ''
             }
-        }
+        };
+        case SET_USER_PROFILE: {
+            return {
+                ...state,
+                profile: action.profile
+            }
+        };
         default:
             return state 
     }
@@ -42,11 +50,16 @@ export function addPostActionCreater() {
         type: ADD_POST
     }
 }
-
 export function updateNewPostTextActionCreater(text) {
     return {
         type: UPDATE_NEW_POST_TEXT,
         text: text,
+    }
+}
+export function setUserProfile(profile) {
+    return {
+        type: SET_USER_PROFILE,
+        profile
     }
 }
 

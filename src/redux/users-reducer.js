@@ -1,9 +1,12 @@
+import { usersAPI } from './../api/api';
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
+const TOGGLE_IS_FOLLOWING_PROCESS = 'TOGGLE-IS-FOLLOWING-PROCESS';
 
 let initialState = {
     users: [],
@@ -11,6 +14,7 @@ let initialState = {
     totalUsersCount: 100, 
     currentPage: 1,
     isFetching: true,
+    followingInProcess: [],
 }
 
 const usersReduce = (state = initialState, action) => {
@@ -55,18 +59,25 @@ const usersReduce = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching,
             };
+        case TOGGLE_IS_FOLLOWING_PROCESS:
+            return {
+                ...state,
+                followingInProcess: action.isFetching
+                ? [...state.followingInProcess, action.userId]
+                : state.followingInProcess.filter( id => id != action.userId ),
+            };
         default:
             return state 
     }
 }
 
-export function follow(userId) {
+export function followSuccess(userId) {
     return {
         type: FOLLOW,
         userId
     }
 }
-export function unFollow(userId) {
+export function unFollowSuccess(userId) {
     return {
         type: UNFOLLOW,
         userId
@@ -94,6 +105,63 @@ export function toggleIsFetching(isFetching) {
     return {
         type: TOGGLE_IS_FETCHING,
         isFetching
+    }
+}
+export function tongleFollowingInProcess(isFetching, userId) {
+    return {
+        type: TOGGLE_IS_FOLLOWING_PROCESS,
+        isFetching,
+        userId
+    }
+}
+
+export function getUsers(currentPage, pageSize) {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(response => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setUsers(response.items));
+                dispatch(setTotalUsersCount(response.totalCount));
+            });
+    }
+}
+
+export function getUsers2(currentPage, pageSize) {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true));
+        dispatch(setCurrentPage(currentPage));
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(response => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setUsers(response.items));
+            })
+    }
+}
+
+export function follow(id) {
+    return (dispatch) => {
+        dispatch(tongleFollowingInProcess(true, id));
+        usersAPI.follow(id)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(followSuccess(id))
+                }
+                dispatch(tongleFollowingInProcess(false, id));
+            })
+    }
+}
+
+export function unFollow(id) {
+    return (dispatch) => {
+        dispatch(tongleFollowingInProcess(true, id));
+        usersAPI.unFollow(id)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(unFollowSuccess(id))
+                }
+                dispatch(tongleFollowingInProcess(false, id));
+            })
     }
 }
 

@@ -23,7 +23,8 @@ function Users(props) {
                     id={cur.id}
                     followed={cur.followed}
                     follow={props.follow}
-                    unFollow={props.unFollow} />
+                    unFollow={props.unFollow}
+                    followingInProcess={props.followingInProcess} />
             })
         }
     </div>)

@@ -1,5 +1,5 @@
 import './App.scss';
-import Header from './../Header/Header';
+import HeaderContainer from './../Header/HeaderContainer';
 import Menu from './../Menu/Menu';
 import ProfileContainer from './../Profile/ProfileContainer';
 import UsersContainer from './../Users/UsersContainer';
@@ -10,10 +10,10 @@ function App(props) {
   return (
     <BrowserRouter>
       <div className="app">
-        <Header />
+        <HeaderContainer />
         <main className="main">
           <Menu />
-          <div className='content'>
+          <div className="content">
             <Routes>
               <Route path="profile/*" element={<ProfileContainer />}></Route>
               <Route path="dialogs/*" element={<DialogsContainer />}></Route>

@@ -1,11 +1,13 @@
 .error_message {
   display: inline-block;
-  border-radius: 10px;
-  padding: 5px;
   color: red;
   background-color: black;
   margin: 10px 0 10px 0;
 }
 .input_error {
   outline: 3px solid #0b28cd;
+}
+
+.button {
+  display: block;
 }

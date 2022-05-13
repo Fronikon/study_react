@@ -2,6 +2,9 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import loginFormSchema from './../FormValidation/LoginFormSchema';
 import styles from "./Login.module.scss";
+import { connect } from 'react-redux';
+import { login } from '../../redux/auth-reducer';
+import { Navigate } from 'react-router-dom';
 
 // const validateLoginForm = values => {
 //     const errors = {};
@@ -15,9 +18,13 @@ import styles from "./Login.module.scss";
 //     return errors;
 // };
 
-const Login = () => {
-    function submit(values) {
-        console.log(values)
+const Login = (props) => {
+    function submit(formData, { setSubmitting, setStatus }) {
+        props.login(formData.email, formData.password, formData.rememberMe, setStatus, setSubmitting)
+        setSubmitting(true)
+    }
+    if (props.isAuth) {
+        return <Navigate to={"/profile"}/>
     }
 
     return (
@@ -33,7 +40,7 @@ const Login = () => {
                 validationSchema={loginFormSchema}
                 onSubmit={submit}
             >
-                {({dirty, isValid}) => (
+                {({isSubmitting, isValid, status}) => (
                     <Form>
                         <div>
                             <Field
@@ -62,7 +69,9 @@ const Login = () => {
                             <label htmlFor={'rememberMe'}> remember me </label>
                         </div>
 
-                        <button type={'submit'} disabled={!dirty}>Login</button>
+                        <div className={styles.error_message}>{status}</div> 
+
+                        <button type={'submit'} disabled={isSubmitting} className={styles.button}>Login</button>
                     </Form>
                 )}
             </Formik>
@@ -70,4 +79,8 @@ const Login = () => {
     )
 }
 
-export default Login;
+
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth,
+});
+export default connect(mapStateToProps, {login}) (Login);

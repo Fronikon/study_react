@@ -1,31 +1,41 @@
-import { useRef } from "react";
+import { Field, Form, Formik, ErrorMessage } from "formik";
+import postFormSchema from "../../FormValidation/PostFormSchema";
 import styles from "./MyPosts.module.scss";
 import Post from "./Post/Post";
 
 function MyPosts(props) {
     let postsElements = props.posts.map((cur) => <Post key={cur.id} comment={cur.comment} />)
-    let newPostElement = useRef();
 
-    function addPost() {
-        props.addPost();
+    function addPost(values) {
+        props.addPost(values.post);
     }
 
-    function onPostChange() {
-        let text = newPostElement.current.value;
-        props.updateNewPostText(text);
-    }
-    
     return (
         <div className={styles.myPosts}>
-            <div className={styles.new_post}>
-                <textarea ref={newPostElement}
-                    onChange={onPostChange}
-                    value={props.newTextPost}
-                    cols="40"
-                    rows="5"
-                    placeholder="Описание..."></textarea>
-            </div>
-            <button onClick={addPost}>Новый пост</button>
+            <Formik
+                initialValues={{
+                    post: "",
+                }}
+                onSubmit={addPost}
+                validationSchema={postFormSchema}
+            >
+                {(formik) => (
+                <Form>
+                    <div className={styles.new_post}>
+                        <Field
+                            name='post'
+                            as={'textarea'}
+                            cols="40"
+                            rows="5"
+                            placeholder="Your new post..."
+                            className={formik.isValid ? '' : styles.post_error}
+                        ></Field>
+                        <br />
+                        <ErrorMessage name="post" component={'span'} className={styles.error_message} />
+                    </div>
+                    <button type="submit">Add post</button>
+                </Form>)}
+            </Formik>
             <h3 className="title">Посты:</h3>
             <div className={styles.posts}>
                 {postsElements}

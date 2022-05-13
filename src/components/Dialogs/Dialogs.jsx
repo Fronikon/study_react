@@ -1,17 +1,9 @@
+import { Field, Form, Formik } from "formik";
 import styles from "./Dialogs.module.scss";
 import DialogUser from "./DialogUser/DialogUser";
 import MessagesUser from "./MessagesUser/MessagesUser";
 
 function Dialogs(props) {
-    function onSendMassageClick() {
-        props.sendMassage();
-    }
-    
-    function onNewBodyMessageChange(e) {
-        let body = e.target.value;
-        props.updateNewMessageBody(body);
-    }
-
     let dialogsElements = props.messagesPage.dialogs.map( (cur) => {
         return <DialogUser key={cur.id}
                             name={cur.name}
@@ -23,6 +15,10 @@ function Dialogs(props) {
         return <MessagesUser message={cur.message} />
     })
 
+    function sendMessage(values) {
+        props.sendMessage(values.message);
+    }
+
     return (
         <div className={styles.dialogs}>
             <div className={styles.names}>
@@ -32,10 +28,21 @@ function Dialogs(props) {
                 <div className={styles.messages}>
                     {messagesElements}
                 </div>
-                <div className={styles.send_message}>
-                    <textarea onChange={onNewBodyMessageChange} value={props.messagesPage.newMessagesBody} cols="50" rows="2"></textarea>
-                    <button onClick={onSendMassageClick}>Отправить</button>
-                </div>
+                <Formik
+                    initialValues={{
+                        message: "",
+                    }}
+                    onSubmit={sendMessage}
+                >
+                    {({dirty}) => (
+                        <Form>
+                            <div className={styles.send_message}>
+                                <Field name={'message'} cols="50" rows="2" as='textarea'></Field>
+                                <button type="submit" disabled={!dirty}>Send</button>
+                            </div>
+                        </Form>
+                    )}
+                </Formik>
             </div>
         </div>
     );

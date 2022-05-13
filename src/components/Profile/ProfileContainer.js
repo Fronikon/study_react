@@ -1,14 +1,17 @@
 import React from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
-import { getUserProfile } from './../../redux/profile-reducer';
+import { getUserProfile, getUserStatus, updateUserStatus } from './../../redux/profile-reducer';
 import withRouter from './../../withRouter';
+import { withAuthRedirect } from './../../hoc/withAuthRedirect'; // не удалять
+import { compose } from 'redux';
 
 class ProfileComponent extends React.Component {
     componentDidMount() {
         let userId = this.props.router.params['*'];
-        if (!userId) userId = 2;
+        if (!userId) userId = 23348; // при клике на profile
         this.props.getUserProfile(userId)
+        this.props.getUserStatus(userId)
     }
     
     render() {
@@ -18,16 +21,23 @@ class ProfileComponent extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        status: state.profilePage.status,
     }
 }
 
-let WithUrlDataContainerComponent = withRouter(ProfileComponent)
+const mapDispatchToProps = {
+    getUserProfile,
+    getUserStatus,
+    updateUserStatus
+}
 
-let ProfileContainer = connect(mapStateToProps, {
-    getUserProfile
-})(WithUrlDataContainerComponent);
+const ProfileContainer = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter,
+    // withAuthRedirect
+)(ProfileComponent)
 
 export default ProfileContainer;

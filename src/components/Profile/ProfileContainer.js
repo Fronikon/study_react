@@ -9,7 +9,9 @@ import { compose } from 'redux';
 class ProfileComponent extends React.Component {
     componentDidMount() {
         let userId = this.props.router.params['*'];
-        if (!userId) userId = 23348; // при клике на profile
+        if (!userId) {
+            userId = this.props.currentUserId;
+        }
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)
     }
@@ -25,6 +27,8 @@ const mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
+        currentUserId: state.auth.id,
+        isAuth: state.auth.isAuth,
     }
 }
 
@@ -37,7 +41,7 @@ const mapDispatchToProps = {
 const ProfileContainer = compose(
     connect(mapStateToProps, mapDispatchToProps),
     withRouter,
-    // withAuthRedirect
+    withAuthRedirect
 )(ProfileComponent)
 
 export default ProfileContainer;

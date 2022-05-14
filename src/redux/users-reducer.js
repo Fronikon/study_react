@@ -64,7 +64,7 @@ const usersReduce = (state = initialState, action) => {
                 ...state,
                 followingInProcess: action.isFetching
                 ? [...state.followingInProcess, action.userId]
-                : state.followingInProcess.filter( id => id != action.userId ),
+                : state.followingInProcess.filter( id => id !== action.userId ),
             };
         default:
             return state 
@@ -115,27 +115,16 @@ export function tongleFollowingInProcess(isFetching, userId) {
     }
 }
 
-export function getUsers(currentPage, pageSize) {
+export function getUsers(page, pageSize) {
     return (dispatch) => {
         dispatch(toggleIsFetching(true))
-        usersAPI.getUsers(currentPage, pageSize)
+        dispatch(setCurrentPage(page))
+        usersAPI.getUsers(page, pageSize)
             .then(response => {
                 dispatch(toggleIsFetching(false));
                 dispatch(setUsers(response.items));
                 dispatch(setTotalUsersCount(response.totalCount));
             });
-    }
-}
-
-export function getUsers2(currentPage, pageSize) {
-    return (dispatch) => {
-        dispatch(toggleIsFetching(true));
-        dispatch(setCurrentPage(currentPage));
-        usersAPI.getUsers(currentPage, pageSize)
-            .then(response => {
-                dispatch(toggleIsFetching(false));
-                dispatch(setUsers(response.items));
-            })
     }
 }
 

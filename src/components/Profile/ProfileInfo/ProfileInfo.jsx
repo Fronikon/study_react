@@ -1,6 +1,6 @@
 import Preloader from '../../common/Preloader/Preloader';
 import styles from './ProfileInfo.module.scss';
-import ProfileStatus from './ProfileStatus/ProfileStatus';
+import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks';
 
 function ProfileInfo(props) {
     if (!props.profile) {
@@ -16,7 +16,7 @@ function ProfileInfo(props) {
                     <h3>My name:</h3>
                     <span className={styles.fullName}>{props.profile.fullName}</span>
                 </div>
-                <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus} />
+                <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus} />
                 <div>
                     <h3 className="title">About me:</h3>
                     <p className={styles.description}>{props.profile.aboutMe}</p>

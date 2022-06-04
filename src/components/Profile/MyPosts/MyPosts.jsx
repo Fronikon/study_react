@@ -1,9 +1,10 @@
 import { Field, Form, Formik, ErrorMessage } from "formik";
+import React from "react";
 import postFormSchema from "../../FormValidation/PostFormSchema";
 import styles from "./MyPosts.module.scss";
 import Post from "./Post/Post";
 
-function MyPosts(props) {
+const MyPosts = React.memo((props) => {
     let postsElements = props.posts.map((cur) => <Post key={cur.id} comment={cur.comment} />)
 
     function addPost(values) {
@@ -42,6 +43,6 @@ function MyPosts(props) {
             </div>
         </div>
     );
-}
+})
 
 export default MyPosts;

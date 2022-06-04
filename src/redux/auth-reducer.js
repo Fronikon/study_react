@@ -29,39 +29,36 @@ export function setAuthUserData(id, email, login, isAuth) {
 }
 
 export function getAuthUserData() {
-    return (dispatch) => {
-        return authAPI.getAuthStatus()
-        .then(response => {
-                if (response.resultCode === 0) {
-                    let {id, email, login} = response.data
-                    dispatch( setAuthUserData(id, email, login, true) )
-                }
-            })
+    return async (dispatch) => {
+        let response = await authAPI.getAuthStatus()
+        
+        if (response.resultCode === 0) {
+            let {id, email, login} = response.data
+            dispatch( setAuthUserData(id, email, login, true) )
+        }
     }
 }
 
 export function login(email, password, rememberMe, setStatus, setSubmitting) {
-    return (dispatch) => {
-        authAPI.login(email, password, rememberMe)
-        .then(response => {
-                if (response.resultCode === 0) {
-                    dispatch(getAuthUserData())
-                } else {
-                    setStatus(response.messages);
-                    setSubmitting(false);
-                }
-            })
+    return async (dispatch) => {
+        let response = await authAPI.login(email, password, rememberMe)
+        
+        if (response.resultCode === 0) {
+            dispatch(getAuthUserData())
+        } else {
+            setStatus(response.messages);
+            setSubmitting(false);
+        }
     }
 }
 
 export function logOut() {
-    return (dispatch) => {
-        authAPI.logOut()
-        .then(response => {
-                if (response.resultCode === 0) {
-                    dispatch(setAuthUserData(null, null, null, false))
-                }
-            })
+    return async (dispatch) => {
+        let response = await authAPI.logOut()
+        
+        if (response.resultCode === 0) {
+            dispatch(setAuthUserData(null, null, null, false))
+        }
     }
 }
 

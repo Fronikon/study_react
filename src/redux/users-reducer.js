@@ -11,7 +11,7 @@ const TOGGLE_IS_FOLLOWING_PROCESS = 'TOGGLE-IS-FOLLOWING-PROCESS';
 let initialState = {
     users: [],
     pageSize: 5,
-    totalUsersCount: 100, 
+    totalUsersCount: 100,
     currentPage: 1,
     isFetching: true,
     followingInProcess: [],
@@ -22,9 +22,9 @@ const usersReduce = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map( user => {
+                users: state.users.map(user => {
                     if (user.id === action.userId) {
-                        return {...user, followed: true}
+                        return { ...user, followed: true }
                     }
                     return user;
                 })
@@ -32,9 +32,9 @@ const usersReduce = (state = initialState, action) => {
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map( user => {
+                users: state.users.map(user => {
                     if (user.id === action.userId) {
-                        return {...user, followed: false}
+                        return { ...user, followed: false }
                     }
                     return user;
                 })
@@ -63,11 +63,11 @@ const usersReduce = (state = initialState, action) => {
             return {
                 ...state,
                 followingInProcess: action.isFetching
-                ? [...state.followingInProcess, action.userId]
-                : state.followingInProcess.filter( id => id !== action.userId ),
+                    ? [...state.followingInProcess, action.userId]
+                    : state.followingInProcess.filter(id => id !== action.userId),
             };
         default:
-            return state 
+            return state
     }
 }
 
@@ -116,41 +116,36 @@ export function tongleFollowingInProcess(isFetching, userId) {
 }
 
 export function getUsers(page, pageSize) {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
-        usersAPI.getUsers(page, pageSize)
-            .then(response => {
-                dispatch(toggleIsFetching(false));
-                dispatch(setUsers(response.items));
-                dispatch(setTotalUsersCount(response.totalCount));
-            });
+
+        let response = await usersAPI.getUsers(page, pageSize)
+        dispatch(toggleIsFetching(false));
+        dispatch(setUsers(response.items));
+        dispatch(setTotalUsersCount(response.totalCount));
     }
 }
 
+const followUnfollowFlow = async (dispatch, id, apiMethod, actionCreator) => {
+    dispatch(tongleFollowingInProcess(true, id));
+
+    let response = await apiMethod(id)
+    if (response.data.resultCode === 0) {
+        dispatch(actionCreator(id))
+    }
+    dispatch(tongleFollowingInProcess(false, id));
+}
+
 export function follow(id) {
-    return (dispatch) => {
-        dispatch(tongleFollowingInProcess(true, id));
-        usersAPI.follow(id)
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(followSuccess(id))
-                }
-                dispatch(tongleFollowingInProcess(false, id));
-            })
+    return async (dispatch) => {
+        followUnfollowFlow(dispatch, id, usersAPI.follow.bind(usersAPI), followSuccess);
     }
 }
 
 export function unFollow(id) {
-    return (dispatch) => {
-        dispatch(tongleFollowingInProcess(true, id));
-        usersAPI.unFollow(id)
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(unFollowSuccess(id))
-                }
-                dispatch(tongleFollowingInProcess(false, id));
-            })
+    return async (dispatch) => {
+        followUnfollowFlow(dispatch, id, usersAPI.unFollow.bind(usersAPI), unFollowSuccess);
     }
 }
 

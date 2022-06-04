@@ -25,12 +25,11 @@ export function initializedSuccess() {
 }
 
 export function initializeApp() {
-    return (dispatch) => {
+    return async (dispatch) => {
         let promise = dispatch(getAuthUserData());
-        Promise.all([promise])
-            .then(() => {
-                dispatch(initializedSuccess())
-            })
+        
+        await Promise.all([promise])
+        dispatch(initializedSuccess())
     }
 }
 

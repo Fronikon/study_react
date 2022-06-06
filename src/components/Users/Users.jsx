@@ -8,7 +8,8 @@ function Users(props) {
                 totalUsersCount={props.totalUsersCount}
                 pageSize={props.pageSize}
                 currentPage={props.currentPage}
-                onPageChanged={props.onPageChanged} />
+                onPageChanged={props.onPageChanged}
+                portionSize={props.portionSize} />
             {
                 props.users.map((cur) => {
                     return <User 

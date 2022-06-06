@@ -15,7 +15,8 @@ import {
     getTotalUsersCount,
     getCurrentPage,
     getIsFetching,
-    getFollowingInProcess
+    getFollowingInProcess,
+    getPortionSize
 } from './../../redux/users-selectors';
 
 class UsersComponent extends React.Component {
@@ -37,7 +38,8 @@ class UsersComponent extends React.Component {
                 follow={this.props.follow}
                 users={this.props.users}
                 followingInProcess={this.props.followingInProcess}
-                onPageChanged={this.onPageChanged} />
+                onPageChanged={this.onPageChanged}
+                portionSize={this.props.portionSize} />
         </>
     }
 }
@@ -50,6 +52,7 @@ const mapStateToProps = (state) => {
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
         followingInProcess: getFollowingInProcess(state),
+        portionSize: getPortionSize(state),
     }
 }
 
